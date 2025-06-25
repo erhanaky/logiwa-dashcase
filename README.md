@@ -230,3 +230,13 @@ export class JobStateService {
   # Non-interactive mode
   ng test --watch=false --browsers=ChromeHeadless
   ```
+
+---
+   
+## ⚠️ Limitations & Mocked Areas
+- **Mock APIs:** `json-server` & Apollo mock—no real backend
+- **Pagination & Auth:** not implemented
+- **Accessibility:** basic ARIA & keyboard support; needs audit
+- **PWA / Offline:** service worker not configured
+- **Test Coverage:** ~40%, needs more tests to reach 80%+
+- **Global Error Handling:** no custom `ErrorHandler`
