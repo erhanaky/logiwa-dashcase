@@ -48,6 +48,27 @@
       "status": "Pending",
       "assignedUser": "Berat Gür",
       "createdDate": "2025-06-26T17:40:00Z"
+    },
+    {
+      "id": "JOB-008",
+      "sku": "SKU-130",
+      "status": "In Progress",
+      "assignedUser": "Kübra Sayık",
+      "createdDate": "2025-06-27T18:10:00Z"
+    },
+    {
+      "id": "JOB-009",
+      "sku": "SKU-131",
+      "status": "Completed",
+      "assignedUser": "Selçuk Ertürk",
+      "createdDate": "2025-06-28T19:40:00Z"
+    },
+    {
+      "id": "JOB-010",
+      "sku": "SKU-132",
+      "status": "Pending",
+      "assignedUser": "Fırat Baydar",
+      "createdDate": "2025-06-29T19:55:00Z"
     }
   ]
 }

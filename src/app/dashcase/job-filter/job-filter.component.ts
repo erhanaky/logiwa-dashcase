@@ -35,6 +35,16 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
           formControlName="endDate"
         />
       </div>
+
+      <div>
+        <button
+          type="button"
+          class="btn btn-outline-secondary w-100"
+          (click)="clearFilters()"
+        >
+          Clear Filters
+        </button>
+      </div>
     </form>
   `,
 })
@@ -59,9 +69,22 @@ export class JobFilterComponent implements OnInit {
 
     this.filterForm.valueChanges.subscribe(({ status, startDate, endDate }) => {
       const filter: { status?: string; dateRange?: [string, string] } = {};
-      if (status) filter.status = status;
-      if (startDate && endDate) filter.dateRange = [startDate, endDate];
+      if (status) {
+        filter.status = status;
+      }
+      if (startDate && endDate) {
+        filter.dateRange = [startDate, endDate];
+      }
       this.filterChange.emit(filter);
     });
+  }
+
+  clearFilters() {
+    this.filterForm.reset({
+      status: '',
+      startDate: '',
+      endDate: '',
+    });
+    this.filterChange.emit({});
   }
 }

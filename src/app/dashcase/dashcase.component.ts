@@ -20,13 +20,12 @@ import { Observable } from 'rxjs';
   ],
   template: `
     <div class="container-fluid px-2 px-md-4 py-4">
-      <h2 class="mb-4">DashCase</h2>
+      <h2 class="mb-4">Logiwa DashCase</h2>
 
       <div class="row gy-3">
         <div class="col-12 col-md-3">
           <div class="card border-0 shadow-none">
             <div class="card-body">
-              <h5 class="card-title">Filter</h5>
               <app-job-filter
                 (filterChange)="onFilter($event)"
               ></app-job-filter>
