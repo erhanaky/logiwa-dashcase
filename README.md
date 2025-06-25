@@ -240,3 +240,24 @@ export class JobStateService {
 - **PWA / Offline:** service worker not configured
 - **Test Coverage:** ~40%, needs more tests to reach 80%+
 - **Global Error Handling:** no custom `ErrorHandler`
+
+---
+   
+## 📂 Project Structure
+  ```text
+  src/
+  ├── app/
+  │   ├── dashcase/
+  │   │   ├── job-list/
+  │   │   ├── job-filter/
+  │   │   ├── job-detail-sidebar/
+  │   │   ├── job-state.service.ts
+  │   │   └── dashcase.component.ts
+  │   ├── app.component.ts
+  │   ├── app.config.ts
+  │   └── app.routes.ts
+  ├── assets/
+  ├── environments/
+  ├── styles.scss     ← global theme & overrides
+  └── main.ts
+  ```
