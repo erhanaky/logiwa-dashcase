@@ -27,23 +27,20 @@ export class JobStateService {
   loadJobs(): void {
     this._loading.next(true);
     this._error.next(null);
-    // settimeout network gecikmesini simule etmek icin eklendi
-    setTimeout(() => {
-      this.http
-        .get<Job[]>(`${environment.apiBaseUrl}/jobs`)
-        .pipe(
-          finalize(() => this._loading.next(false)),
-          catchError((err) => {
-            console.error('loadJobs error', err);
-            this._error.next('İşler yüklenirken bir hata oluştu.');
-            return of<Job[]>([]);
-          })
-        )
-        .subscribe((jobs) => {
-          this._allJobs.next(jobs);
-          this._jobs.next(jobs);
-        });
-    }, 750);
+    this.http
+      .get<Job[]>(`${environment.apiBaseUrl}/jobs`)
+      .pipe(
+        finalize(() => this._loading.next(false)),
+        catchError((err) => {
+          console.error('loadJobs error', err);
+          this._error.next('İşler yüklenirken bir hata oluştu.');
+          return of<Job[]>([]);
+        }),
+      )
+      .subscribe((jobs) => {
+        this._allJobs.next(jobs);
+        this._jobs.next(jobs);
+      });
   }
 
   applyFilter(filter: { status?: string; dateRange?: [string, string] }): void {
@@ -78,7 +75,7 @@ export class JobStateService {
           console.error('updateStatus error', err);
           this.loadJobs();
           return of(null as unknown as Job);
-        })
+        }),
       )
       .subscribe();
   }
