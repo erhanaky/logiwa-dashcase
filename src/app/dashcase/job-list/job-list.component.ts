@@ -50,15 +50,27 @@ import { Job } from '../../shared/models/job.model';
                 <td>{{ job.id }}</td>
                 <td>{{ job.sku }}</td>
                 <td
-                  class="status-cell"
+                  class="status-cell text-nowrap"
                   [class.status-completed]="job.status === 'Completed'"
                   [class.status-pending]="job.status === 'Pending'"
                   [class.status-in-progress]="job.status === 'In Progress'"
                 >
+                  <i
+                    *ngIf="job.status === 'Completed'"
+                    class="bi bi-check-circle-fill text-success me-1"
+                  ></i>
+                  <i
+                    *ngIf="job.status === 'In Progress'"
+                    class="bi bi-hourglass-split text-warning me-1"
+                  ></i>
+                  <i
+                    *ngIf="job.status === 'Pending'"
+                    class="bi bi-clock-fill text-primary me-1"
+                  ></i>
                   {{ job.status }}
                 </td>
                 <td>{{ job.assignedUser }}</td>
-                <td>{{ job.createdDate | date : 'short' }}</td>
+                <td>{{ job.createdDate | date: 'short' }}</td>
               </tr>
               <tr *ngIf="(jobs$ | async)?.length === 0">
                 <td colspan="5" class="text-center text-muted">
@@ -87,19 +99,32 @@ import { Job } from '../../shared/models/job.model';
                       <strong>SKU:</strong> {{ job.sku }}
                     </p>
                     <p
-                      class="card-text mb-1 status-cell"
+                      class="card-text mb-1 status-cell text-nowrap"
                       [class.status-completed]="job.status === 'Completed'"
                       [class.status-pending]="job.status === 'Pending'"
                       [class.status-in-progress]="job.status === 'In Progress'"
                     >
-                      <strong>Status:</strong> {{ job.status }}
+                      <strong class="me-1">Status:</strong>
+                      <i
+                        *ngIf="job.status === 'Completed'"
+                        class="bi bi-check-circle-fill text-success me-1"
+                      ></i>
+                      <i
+                        *ngIf="job.status === 'In Progress'"
+                        class="bi bi-hourglass-split text-warning me-1"
+                      ></i>
+                      <i
+                        *ngIf="job.status === 'Pending'"
+                        class="bi bi-clock-fill text-primary me-1"
+                      ></i>
+                      {{ job.status }}
                     </p>
                     <p class="card-text mb-1">
                       <strong>User:</strong> {{ job.assignedUser }}
                     </p>
                     <p class="card-text mb-0">
                       <strong>Date:</strong>
-                      {{ job.createdDate | date : 'short' }}
+                      {{ job.createdDate | date: 'short' }}
                     </p>
                   </div>
                 </div>
