@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Job } from '../shared/models/job.model';
 
 export interface JobDetail extends Job {
@@ -10,6 +10,7 @@ export interface JobDetail extends Job {
 
 @Injectable({ providedIn: 'root' })
 export class JobDetailService {
+  // eslint-disable-next-line @angular-eslint/prefer-inject
   constructor(private apollo: Apollo) {}
 
   getJobDetail(id: string): Observable<JobDetail> {
@@ -28,7 +29,10 @@ export class JobDetailService {
           }
         `,
         variables: { id },
+        fetchPolicy: 'network-only',
       })
-      .valueChanges.pipe(map((result) => result.data.job));
+      .valueChanges.pipe(
+        map((result: { data: { job: JobDetail } }) => result.data.job)
+      );
   }
 }

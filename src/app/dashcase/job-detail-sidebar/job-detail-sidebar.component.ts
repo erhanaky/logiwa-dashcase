@@ -4,7 +4,6 @@ import {
   Output,
   EventEmitter,
   OnChanges,
-  SimpleChanges,
 } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -29,7 +28,9 @@ import { Validators } from '@angular/forms';
     >
       <div class="offcanvas-header">
         <h5 class="offcanvas-title">Job {{ job.id }} Details</h5>
-        <button type="button" class="btn-close" (click)="close()"></button>
+        <button type="button" class="btn-close" (click)="close()">
+          <span class="visually-hidden">Close</span>
+        </button>
       </div>
       <div class="offcanvas-body">
         <p><strong>SKU:</strong> {{ job.sku }}</p>
@@ -77,12 +78,15 @@ export class JobDetailSidebarComponent implements OnChanges {
   statuses: Job['status'][] = ['Pending', 'In Progress', 'Completed'];
 
   constructor(
+    // eslint-disable-next-line @angular-eslint/prefer-inject
     private fb: FormBuilder,
+    // eslint-disable-next-line @angular-eslint/prefer-inject
     private jobDetailService: JobDetailService,
+    // eslint-disable-next-line @angular-eslint/prefer-inject
     private jobState: JobStateService
   ) {}
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (this.jobId) {
       this.job$ = this.jobDetailService.getJobDetail(this.jobId);
       this.statusForm = this.fb.group({

@@ -23,13 +23,15 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     job: (_, { id }) => {
+      const dbPath = path.join(__dirname, "db.json");
+      const dbRaw = fs.readFileSync(dbPath, "utf8");
+      const db = JSON.parse(dbRaw);
       const job = db.jobs.find((j) => j.id === id);
-      return job
-        ? {
-            ...job,
-            description: "This is a detailed description for " + job.id,
-          }
-        : null;
+      if (!job) return null;
+      return {
+        ...job,
+        description: `This is a detailed description for ${job.id}`,
+      };
     },
   },
 };

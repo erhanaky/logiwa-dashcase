@@ -47,6 +47,7 @@ export class JobFilterComponent implements OnInit {
   filterForm!: FormGroup;
   statuses = ['Pending', 'In Progress', 'Completed'];
 
+  // eslint-disable-next-line @angular-eslint/prefer-inject
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
@@ -57,7 +58,7 @@ export class JobFilterComponent implements OnInit {
     });
 
     this.filterForm.valueChanges.subscribe(({ status, startDate, endDate }) => {
-      const filter: any = {};
+      const filter: { status?: string; dateRange?: [string, string] } = {};
       if (status) filter.status = status;
       if (startDate && endDate) filter.dateRange = [startDate, endDate];
       this.filterChange.emit(filter);

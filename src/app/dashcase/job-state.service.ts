@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -19,6 +19,7 @@ export class JobStateService {
   readonly loading$ = this._loading.asObservable();
   readonly error$ = this._error.asObservable();
 
+  // eslint-disable-next-line @angular-eslint/prefer-inject
   constructor(private http: HttpClient) {
     this.loadJobs();
   }
@@ -76,7 +77,7 @@ export class JobStateService {
         catchError((err) => {
           console.error('updateStatus error', err);
           this.loadJobs();
-          return of(null as any);
+          return of(null as unknown as Job);
         })
       )
       .subscribe();

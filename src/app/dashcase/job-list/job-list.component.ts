@@ -123,6 +123,7 @@ export class JobListComponent implements OnInit {
 
   @Output() selectJob = new EventEmitter<string>();
 
+  // eslint-disable-next-line @angular-eslint/prefer-inject
   constructor(private jobState: JobStateService) {}
 
   ngOnInit(): void {

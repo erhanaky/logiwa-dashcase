@@ -65,6 +65,7 @@ import { Observable } from 'rxjs';
 export class DashcaseComponent {
   selectedJobId$: Observable<string | null>;
 
+  // eslint-disable-next-line @angular-eslint/prefer-inject
   constructor(private jobState: JobStateService) {
     this.selectedJobId$ = this.jobState.selectedJobId$;
   }
