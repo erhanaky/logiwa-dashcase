@@ -53,7 +53,6 @@ import { JobDetailService, JobDetail } from '../job-detail.service';
       <div class="offcanvas-body">
         <p><strong>SKU:</strong> {{ job.sku }}</p>
 
-        <!-- Iconlu ve renkli Status badge -->
         <p class="d-flex align-items-center">
           <strong class="me-1">Status:</strong>
           <ng-container [ngSwitch]="job.status">

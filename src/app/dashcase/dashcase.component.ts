@@ -24,7 +24,7 @@ import { Observable } from 'rxjs';
 
       <div class="row gy-3">
         <div class="col-12 col-md-3">
-          <div class="card border-0 shadow-none">
+          <div class="card border-0 shadow-none rounded-0">
             <div class="card-body">
               <app-job-filter
                 (filterChange)="onFilter($event)"
