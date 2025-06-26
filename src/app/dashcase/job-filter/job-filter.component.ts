@@ -22,8 +22,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
           id="startDate"
           type="date"
           class="form-control"
-          [class.is-invalid]="showDateError && !filterForm.value.startDate"
           formControlName="startDate"
+          [class.is-invalid]="singleSelectError && !filterForm.value.startDate"
         />
       </div>
 
@@ -33,26 +33,30 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
           id="endDate"
           type="date"
           class="form-control"
-          [class.is-invalid]="showDateError && !filterForm.value.endDate"
           formControlName="endDate"
+          [class.is-invalid]="singleSelectError && !filterForm.value.endDate"
         />
       </div>
 
-      <div *ngIf="showDateError" class="text-danger">
+      <div *ngIf="singleSelectError" class="text-danger">
         Both From and To dates must be selected to filter by date range.
+      </div>
+      <div *ngIf="rangeError" class="text-danger">
+        End date cannot be earlier than start date. Start date reset to match
+        end date.
       </div>
 
       <div class="d-flex gap-2">
         <button
           type="button"
-          class="btn btn-outline-secondary flex-grow-1"
+          class="btn btn-outline-secondary flex-fill"
           (click)="clearFilters()"
         >
           Clear Filters
         </button>
         <button
           type="button"
-          class="btn btn-primary flex-grow-1"
+          class="btn btn-primary flex-fill"
           (click)="applyFilters()"
         >
           Search
@@ -64,12 +68,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
     `
       .is-invalid {
         border-color: #dc3545;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
       }
     `,
   ],
 })
 export class JobFilterComponent implements OnInit {
-  @Output() filterChange = new EventEmitter<{
+  @Output()
+  filterChange = new EventEmitter<{
     status?: string;
     dateRange?: [string, string];
   }>();
@@ -77,7 +83,8 @@ export class JobFilterComponent implements OnInit {
   filterForm!: FormGroup;
   statuses = ['Pending', 'In Progress', 'Completed'];
 
-  showDateError = false;
+  singleSelectError = false;
+  rangeError = false;
 
   // eslint-disable-next-line @angular-eslint/prefer-inject
   constructor(private fb: FormBuilder) {}
@@ -94,11 +101,24 @@ export class JobFilterComponent implements OnInit {
     const { status, startDate, endDate } = this.filterForm.value;
 
     if ((startDate && !endDate) || (!startDate && endDate)) {
-      this.showDateError = true;
+      this.singleSelectError = true;
+      this.rangeError = false;
       return;
     }
 
-    this.showDateError = false;
+    if (startDate && endDate) {
+      const from = new Date(startDate);
+      const to = new Date(endDate);
+      if (to < from) {
+        this.filterForm.patchValue({ startDate: endDate });
+        this.rangeError = true;
+        this.singleSelectError = false;
+        return;
+      }
+    }
+
+    this.singleSelectError = false;
+    this.rangeError = false;
 
     const filter: { status?: string; dateRange?: [string, string] } = {};
     if (status) {
@@ -112,8 +132,13 @@ export class JobFilterComponent implements OnInit {
   }
 
   clearFilters() {
-    this.filterForm.reset({ status: '', startDate: '', endDate: '' });
-    this.showDateError = false;
+    this.filterForm.reset({
+      status: '',
+      startDate: '',
+      endDate: '',
+    });
+    this.singleSelectError = false;
+    this.rangeError = false;
     this.filterChange.emit({});
   }
 }
