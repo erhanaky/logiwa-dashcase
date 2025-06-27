@@ -10,32 +10,51 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
     <form [formGroup]="filterForm" class="d-grid gap-3">
       <div>
         <label for="status" class="form-label">Status</label>
-        <select id="status" class="form-select" formControlName="status">
-          <option value="">All</option>
-          <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
-        </select>
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="bi bi-tag-fill"></i>
+          </span>
+          <select id="status" class="form-select" formControlName="status">
+            <option value="">All</option>
+            <option *ngFor="let s of statuses" [value]="s">
+              {{ s }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>
         <label for="startDate" class="form-label">From</label>
-        <input
-          id="startDate"
-          type="date"
-          class="form-control"
-          formControlName="startDate"
-          [class.is-invalid]="singleSelectError && !filterForm.value.startDate"
-        />
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="bi bi-calendar-event"></i>
+          </span>
+          <input
+            id="startDate"
+            type="date"
+            class="form-control"
+            formControlName="startDate"
+            [class.is-invalid]="
+              singleSelectError && !filterForm.value.startDate
+            "
+          />
+        </div>
       </div>
 
       <div>
         <label for="endDate" class="form-label">To</label>
-        <input
-          id="endDate"
-          type="date"
-          class="form-control"
-          formControlName="endDate"
-          [class.is-invalid]="singleSelectError && !filterForm.value.endDate"
-        />
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="bi bi-calendar-event"></i>
+          </span>
+          <input
+            id="endDate"
+            type="date"
+            class="form-control"
+            formControlName="endDate"
+            [class.is-invalid]="singleSelectError && !filterForm.value.endDate"
+          />
+        </div>
       </div>
 
       <div *ngIf="singleSelectError" class="text-danger">
@@ -66,6 +85,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
   `,
   styles: [
     `
+      .input-group-text {
+        background-color: transparent;
+        border-right: 0;
+      }
+      .form-select,
+      .form-control {
+        border-left: 0;
+      }
       .is-invalid {
         border-color: #dc3545;
         box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);

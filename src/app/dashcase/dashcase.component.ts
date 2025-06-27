@@ -24,7 +24,7 @@ import { Observable } from 'rxjs';
 
       <div class="row gy-3">
         <div class="col-12 col-md-3">
-          <div class="card border-0 shadow-none rounded-0">
+          <div class="card bg-white border rounded mb-3 shadow-sm">
             <div class="card-body">
               <app-job-filter
                 (filterChange)="onFilter($event)"
@@ -59,6 +59,12 @@ import { Observable } from 'rxjs';
         </div>
       </div>
     </div>
+    <footer class="text-center py-2">
+      <small class="text-muted">
+        This project was developed as a technical case study for Logiwa. ©
+        Erhan Akkaya
+      </small>
+    </footer>
   `,
 })
 export class DashcaseComponent {

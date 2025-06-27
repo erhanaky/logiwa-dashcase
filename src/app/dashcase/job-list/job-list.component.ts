@@ -87,7 +87,7 @@ import { Job } from '../../shared/models/job.model';
             <ng-container *ngIf="jobs$ | async as list">
               <div *ngFor="let job of list" class="col">
                 <div
-                  class="card h-100 border-0 shadow-none"
+                  class="card h-100 bg-white border rounded mb-3 shadow-sm"
                   (click)="select(job.id)"
                   tabindex="0"
                   (keydown.enter)="select(job.id)"
